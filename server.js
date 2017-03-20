@@ -8,25 +8,16 @@ var api = require('./routes/api');
 //var bodyParser = require('body-parser');
 
 
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/public/html/index.html');
 
-});
-app.get('/login.html', function(req, res){
-	res.sendFile(__dirname + '/public/html/login.html');
-
-});
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/js'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
 app.use(session({
 	cookieName: 'logSesh',
 	secret: 'ewallet',
-	duration: 1 * 2 * 60 * 1000, // hours * minutes * seconds * ms
+	duration: 1 * 2 * 60 * 1000, 
 	activeDuration: 5 * 1 * 60 * 1000
 }));
 

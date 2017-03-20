@@ -14,12 +14,25 @@ var connection_pool  = mysql.createPool({
   database : 'ewallet'
 });
 
+router.get('/', function(req, res){
+	res.sendFile(__dirname + '/public/html/index.html');
+
+});
+router.get('/login.html', function(req, res){
+	res.sendFile(__dirname + '/public/html/login.html');
+
+});
+
 router.post('/login', function(req, res) {
 	connection_pool.getConnection(function(err, connection) {
 		var hashed_pwd = bcrypt.hashSync(req.body.pwd, salt);
+		console.log(hashed_pwd);
+		console.log(req.body.email);
 
-		var query = connection.query('SELECT * FROM users WHERE email = ?', [req.body.uname], function (error, results, fields) {
+		var query = connection.query('SELECT * FROM users WHERE email = ?', [req.body.email], function (error, results, fields) {
 			if (error || Object.keys(results).length > 1 || Object.keys(results).length == 0 ) {
+
+				console.log(Object.keys(results).length);
   				res.json({status: 'fail', message: 'User doesn\'t exist'});
 			}
 			else {
@@ -31,8 +44,8 @@ router.post('/login', function(req, res) {
 					res.json({status: 'fail', message: "Please check your details"});
 				}
 				else if (match) {
-					req.logSession.uname = req.body.uname;
-					req.logSession.email = results[0].email;
+					//req.logSesh.uname = req.body.uname;
+					req.logSesh.email = results[0].email;
 					res.json({status: 'success', message: "Logging in!"});
 				}			
 			} 
@@ -46,7 +59,9 @@ router.post('/signup', function(req, res) {
 
 	connection_pool.getConnection(function(err, connection) {
 		var hashed_pwd = bcrypt.hashSync(req.body.upwd, salt);
-		var inserts = {u_id: 1, fullname: req.body.uname, dob: null, phno: req.body.ucontact, email: req.body.uemail, address: null, password: hashed_pwd, joined: null};
+				console.log(hashed_pwd);
+
+		var inserts = {fullname: req.body.uname, dob: null, phno: req.body.ucontact, email: req.body.uemail, address: null, password: hashed_pwd, joined: null};
 		var query = connection.query('INSERT INTO users SET ?', inserts, function (error, results, fields) {
   			if (error) res.json({status: 'fail', message: 'Error. Email already registered.'});
 			else{
@@ -60,3 +75,14 @@ router.post('/signup', function(req, res) {
 		});
 	});
 });
+
+router.get('*', function(req, res) {
+	res.send('404');
+});
+
+router.post('*', function(req, res) {
+	res.send('404');
+})
+
+
+module.exports = router;

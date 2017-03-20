@@ -8,19 +8,20 @@
 <div id="login"/>
 	<form method="POST" action="/login">
 	  <div class="group">
-	    <input name="uname"type="email"><span class=""></span><span class="bar"></span>
+	    <input name="email" type="email"><span class=""></span><span class="bar"></span>
 	    <label>Email</label>
 	  </div>
 	  <div class="group">
 	    <input name="pwd" type="password"><span class="highlight"></span><span class="bar"></span>
 	    <label>Password</label>
 	  </div>
-	  <span> <button class=''> Sign in </button>
-		<button class=''> Sign up </button> </span>  
+	  <span> <button type="submit" class=''> Sign in </button> </span>  
 	</form>
 </div>
 
 <div id="usignup" class="container">
+<br>
+<h3> Sign up </h3>
 <form method="POST" action= "/signup">
 	<input name ="uname"type="text"><span class=""></span><span class="bar"></span>
 	<label>Name</label>
@@ -36,6 +37,7 @@
 	
 	<input name="upwd" type="password"><span class=""></span><span class="bar"></span>
 	<label>Password</label>
+	<span> <button class=''> Sign up </button></span>
 <!-- 	<input name="pwd" type="password"><span class=""></span><span class="bar"></span>
 	<label>Confirm password</label> -->
 </form>
