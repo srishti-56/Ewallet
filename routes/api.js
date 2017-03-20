@@ -14,14 +14,7 @@ var connection_pool  = mysql.createPool({
   database : 'ewallet'
 });
 
-router.get('/', function(req, res){
-	res.sendFile(__dirname + '/public/html/index.html');
 
-});
-router.get('/login.html', function(req, res){
-	res.sendFile(__dirname + '/public/html/login.html');
-
-});
 
 router.post('/login', function(req, res) {
 	connection_pool.getConnection(function(err, connection) {

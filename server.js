@@ -7,7 +7,14 @@ var api = require('./routes/api');
 
 //var bodyParser = require('body-parser');
 
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/public/html/index.html');
 
+});
+app.get('/login.html', function(req, res){
+	res.sendFile(__dirname + '/public/html/login.html');
+
+});
 
 
 app.use(express.static(__dirname + '/public'));
