@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS bank (
 
 CREATE TABLE IF NOT EXISTS bank_transaction (
  	b_trans_id int  not null AUTO_INCREMENT,
- 	b_acc_no varchar(25) not null.
- 	amt numeric (15,2) not null.
+ 	b_acc_no varchar(25) not null,
+ 	amt numeric (15,2) not null,
  	card varchar(25),
  	trans_type varchar(25),
  	bank_id int not null,
