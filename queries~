@@ -1,0 +1,147 @@
+Simple queries:
+
+1. Select all accounts with more than Rs.10,000
+> select * from wallet_account where balance > 10000;
+
+
+
+2. Select banks which customers used to recharge their accounts
+> select bank_name from bank,bank_transaction 
+where bank.bank_id=bank_transaction.bank_id 
+and trans_type="recharged";
+
+
+
+3. Find users who made a transaction with a bank having id 1000
+> select users.fullname from users, bank_transaction 
+where bank_id=1000 
+and users.u_id=bank_transaction.u_id;
+
+
+
+4. Select bank accounts belonging to bank having id 1000
+> select b_acc_no from bank_transaction where bank_id=1000;
+
+
+
+5. Select users who used a coupon worth more than Rs.360
+> select users.fullname from users,user_coupons,coupons 
+where users.u_id=user_coupons.reciever 
+and user_coupons.coupon_code = coupons.coupon_id 
+and coupons.amt>360;
+
+
+
+Complex: 
+
+6. Names of all businesses to which total transaction has been made (till date) for more than 100 Rs
+> select fullname from business where b_id in(
+select reciever from wallet_transaction 
+group by reciever having sum(credited) >=100);
+
+
+
+7. Names of all users who have made atleast 2 or more wallet transactions
+> select fullname from users 
+where u_id in( 
+	select sender from wallet_transaction
+	 group by sender
+	 having count(sender) >=2 
+);
+
+
+
+8. List out the average bank deposit that each user has done
+> select bank_transaction.u_id,fullname, avg(amt) 
+from bank_transaction, users 
+where users.u_id = bank_transaction.u_id 
+group by u_id;
+
+
+
+9. List out the people who have used coupons offered by Dover park Hospice
+> select fullname from users 
+where u_id in( 
+	select user_coupons.reciever from user_coupons , business 
+	where  user_coupons.b_id = business.b_id 
+	and business.fullname like 'Dover park Hospice'
+	);
+
+
+
+11. Find users who have paid to a business that is more than 5 years old
+> select fullname from users, wallet_transaction 
+where users.u_id=wallet_transaction.sender 
+and wallet_transaction.reciever in( 
+	select b_id from business 
+	where floor(datediff(curdate(),joined) / 365)>=5 
+	);
+
+
+
+13. As a part of the senior citizen program, add 50Rs to their wallet accounts if above.
+> update wallet_account set balance = balance + 50  
+where user_type like 'U' 
+and i_id in (
+	select u_id from users 
+	where floor(datediff( curdate(), dob )/365 >=50) 
+	); 
+
+Query OK, 4 rows affected (0.40 sec)
+
+
+
+14. List names of businesses with highest average transction made to it
+>select b.fullname, w.reciever from business b , wallet_transaction w,wallet_account where reciever=wallet_account.i_id 
+and b.b_id=w.reciever 
+group by reciever 
+order by avg(credited) desc ;
+
+
+
+15. Find the user who sent the highest amount of money
+> select users.fullname, SUM( wallet_transaction.debited ) AS Amt_Total FROM users, wallet_transaction 
+where users.u_id = wallet_transaction.sender 
+group by wallet_transaction.sender 
+order by Amt_Total desc limit 1;
+
+
+
+
+16. Find the user who sent the least amount of money
+> select users.fullname, SUM( wallet_transaction.debited ) AS Amt_Total FROM users, wallet_transaction 
+where users.u_id = wallet_transaction.sender 
+and wallet_transaction.status 
+like \'completed\' 
+group by wallet_transaction.sender 
+order by Amt_Total limit 1;
+
+
+
+17. View the coupons that VeriSign offers
+> select b.fullname,c.coupon_id from business b,coupons c 
+where b.fullname = 'VeriSign';
+
+
+
+
+18. Find business who have recieved the highest transactions
+> select b.fullname, w.reciever from business b , wallet_transaction w,wallet_account
+where reciever=wallet_account.i_id 
+and b.b_id=w.reciever 
+group by reciever 
+order by count(*) desc ;
+
+
+
+19. Find users who have made the highest number of transactions
+> select users.fullname from users,wallet_transaction 
+where users.u_id = wallet_transaction.sender 
+group by fullname 
+order by count(fullname) desc;
+
+
+
+
+
+

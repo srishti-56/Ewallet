@@ -2,49 +2,204 @@
 <html>
 <head>
 	<title>Log in or Sign up with us!</title>
+	 
+	 <link href="css/bootstrap.min.css" rel="stylesheet">
+	 <script src="./js/jquery-3.2.0.min.js"></script>
+	 <script src="js/bootstrap.min.js"></script>
+
+	
+	<!-- 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+
+	 <script src="./js/jquery.toast.min.js"></script>
+	<link rel="stylesheet" href="./css/jquery.toast.min.css"/>
+	<link rel="stylesheet" href="./css/jquery.toast.min.css"/> -->
+
+
+	<style> 
+
+
+	.divs {
+		display:none;
+	}
+	.panel{
+		margin-left:auto;
+		margin-right:auto;
+	}
+	
+	button{
+		padding-right: 20px;
+		padding-left: 20px; 
+		margin: 10px 10px 10px 10px;
+	}
+	</style>
+	<script type="text/javascript">
+		
+			$(document).ready(function(){
+				$("form").addClass('text-left');
+
+			});
+			//insert functions here
+			function login_div(){
+				$(".divs").hide();
+				$("#ulogin").show();
+			}
+			function signup_div(){
+				$(".divs").hide();
+				$("#signup").show();
+
+			}
+			function usign(){
+				$(".divs").hide();
+				$("#usignup").show();
+			}
+			function bsign(){
+				$(".divs").hide();
+				$("#bsignup").show();
+			}
+
+		$("#lg").submit(function(){
+			e.preventDefault(); // don't submit multiple times
+    		this.submit();
+			$("#sbtn"+1).prop("disabled",true);
+		});
+		$("#us").submit(function(){
+			e.preventDefault(); // don't submit multiple times
+    		this.submit();
+			$("#sbtn"+2).prop("disabled",true);
+		});	
+		$("#bs").submit(function(){
+			e.preventDefault(); // don't submit multiple times
+    		this.submit();
+			$("#sbtn"+3).prop("disabled",true);
+		})
+
+	</script>
 </head>
 <body>
 
-<h3> Log in ! </h3>
-<div id="login"/>
-	<form method="POST" action="/login">
-	  <div class="group">
-	  	<label>Email</label>
-	    <input name="email" type="email"><span class=""></span><span class="bar"></span>
-	  </div>
-	  <div class="group">
-	 <label>Password</label>
-	    <input name="pwd" type="password"><span class="highlight"></span><span class="bar"></span>
-	  </div>
-	  <span> <button type="submit" class=''> Sign in </button> </span>  
+<div class="container-fluid text-center well cols-md-8" style="vertical-align: middle">
+	<h3 style="padding-bottom:10px"> Welcome to our payment portal! </h3>
+	<span>
+	<button id="lin" type="button" class="btn btn-primary" onclick="login_div()"> Log In! </button>
+	<button id="sup" type="button" class="btn btn-primary" onclick="signup_div()"> Sign up with us! </button>
+	</span>
+	</br>
+	
+	<!--LOGIN -->
+	<div style="margin-top: 30px; width: 30%;" class="divs panel panel-primary" id="ulogin"/>
+	<div class="panel panel-heading"> Log in </div>
+	<div class="panel panel-body">
+		<form method="POST" action="/login" id="lg">
+		  	<div class="form-group">
+		  	<label>Email</label>
+		    <input name="email" type="email" class="form-control" >
+		  </div>
+
+		<div class="form-group">
+		 <label>Password</label>
+		    <input name="pwd" type="password" class="form-control" >
+		  </div>
+		  <button  id="sbtn1" class="btn btn-success" type="submit"> Sign in </button>  
+		</form>
+	</div>
+	</div>
+
+	<br>
+
+	<br>
+
+	<!-- SIGNUP	-->
+	<div id="signup" class="container divs">
+	<h3> Are you a </h3>
+	<span><button  type="button" class="btn btn-primary" onclick="bsign()"> Business </button>
+	<button type="button" class="btn btn-primary" onclick="usign()"> Customer </button></span>
+	</div>
+
+	<!-- CUSTOMER SIGNUP	-->
+	<div style="margin-top: 30px; width: 30%; " class="divs panel panel-primary" id="usignup" >
+	<div class="panel panel-heading"> Sign up as a customer</div>
+	<div class="panel panel-body">
+	<form method="POST" action= "/usignup" id='us'>
+		<div class="form-group">
+		<label>Name</label>
+		<input name ="uname" type="text" class="form-control" >
+		</div>
+
+		<div class="form-group">
+		<label>Date of Birth</label>
+		<input name ="udob" type="date" class="form-control" >
+		</div>
+
+		<div class="form-group">
+	    <label>Email</label>
+	    <input name="uemail" type="email" class="form-control" >
+	    </div>
+	    
+		<div class="form-group">
+	 	<label>Phone number</label>
+	 	<input name="ucontact" type="text" class="form-control" >
+	 	</div>
+		
+		<div class="form-group">
+		<label>Address</label>
+		<input name="uaddress" type="text" class="form-control" >
+		</div>
+
+		<div class="form-group">
+		<label>Password</label>
+		<input name="upwd" type="password" class="form-control" >
+		</div>
+
+		 <button id="sbtn2" class="btn btn-success" type="submit"> Register</button>
+	<!-- 	<input name="pwd" type="password"><span class=""></span><span class="bar"></span>
+		<label>Confirm password</label> -->
 	</form>
-</div>
-<br>
-<br>
-<div id="usignup" class="container">
-<br>
-<h3> Sign up </h3>
-<form method="POST" action= "/signup">
-	<label>Name</label>
-	<input name ="uname"type="text"><span class=""></span><span class="bar"></span>
+	</div>
+	</div>
 
-    <label>Email</label>
-    <input name="uemail" type="email"><span class="highlight"></span><span class="bar"></span>
-    
- 	<label>Phone number</label>
- 	<input name="ucontact"type="text"><span class=""></span><span class="bar"></span>
-	
-	<label>Address</label>
-	<input name="uaddress" type="text"><span class=""></span><span class="bar"></span>
-	
-	<label>Password</label>
-	<input name="upwd" type="password"><span class=""></span><span class="bar"></span>
-	
-	<span> <button class=''> Sign up </button></span>
-<!-- 	<input name="pwd" type="password"><span class=""></span><span class="bar"></span>
-	<label>Confirm password</label> -->
-</form>
-</div>
+	<div style="margin-top: 30px; width: 30%; " class="divs panel panel-primary" id="bsignup"/>
+	<div class="panel panel-heading"> Sign up as a business </div>
+	<div class="panel panel-body">
+	<form method="POST" action= "/bsignup" id="bs">
+		<div class="form-group">
+		<label>Name</label>
+		<input name ="bname" type="text" class="form-control" >
+		</div>
 
+		<div class="form-group">
+	    <label>Email</label>
+	    <input name="bemail" type="email" class="form-control">
+	    </div>
+	    
+	    <div class="form-group">	    
+	 	<label>Phone number</label>
+	 	<input name="bcontact" type="text" class="form-control" >
+	 	</div>
+		
+
+		<div class="form-group">
+		<label>Address</label>
+		<input name="baddress" type="text" class="form-control">
+		</div>
+		
+		<div class="form-group">
+		<label>Password</label>
+		<input name="bpwd" type="password" class="form-control">
+		</div>
+
+		 <button id="sbtn3" class="btn btn-success" type="submit"> Register </button>  
+	<!-- 	<input name="pwd" type="password"><span class=""></span><span class="bar"></span>
+		<label>Confirm password</label> -->
+		</div>
+	</form>
+	</div>
+	</div>
+</div>
 </body>
 </html>

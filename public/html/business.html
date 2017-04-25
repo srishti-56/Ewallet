@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Business information </title>
+	 
+	     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	 <link href="css/bootstrap.min.css" rel="stylesheet">
+	 <script src="./js/jquery-3.2.0.min.js"></script>
+	 <script src="js/bootstrap.min.js"></script>
+
+	
+	<!-- 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+
+	 <script src="./js/jquery.toast.min.js"></script>
+	<link rel="stylesheet" href="./css/jquery.toast.min.css"/>
+	<link rel="stylesheet" href="./css/jquery.toast.min.css"/> -->
+
+
+	<style> 
+
+	.dropbtn {
+    background-color: #0080ff;
+    border-radius: 10px;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding-right: 20px;
+    padding-left: 20px;
+	}
+
+	.dropbtn:hover, .dropbtn:focus {
+	    background-color: #00bfff;
+	}
+
+	.dropdown {
+	    position: relative;
+	    display: inline-block;
+	}
+
+	.dropdown-content {
+	    display: none;
+	    position: absolute;
+	    background-color: #f9f9f9;
+	    min-width: 160px;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	    z-index: 1;
+	}
+
+	.dropdown-content a {
+	    color: black;
+	    padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+	}
+
+	.dropdown-content a:hover {background-color: #f1f1f1}
+
+	.show {display:block;}
+
+
+	.qdiv {
+	  display:none;
+	}
+
+
+	.panel{
+		margin-left:auto;
+		margin-right:auto;
+	}
+		
+	button{
+		padding-right: 20px;
+		padding-left: 20px; 
+		margin: 10px 10px 10px 10px;
+	}	
+
+	</style>
+	<script type="text/javascript">
+
+	function sendq(a){
+		if(a==1){
+
+		  	$.ajax({
+		  		url: "/bsqueries",
+		  		data: {"bus": 1},
+		  		type: "POST", 
+		  		success: function(result){console.log(result[0]);
+		  			for(var i=0;i<result.length;i++){
+		  				$("#query01").append('<p>'+result[i].fullname+'</p>');
+		  		}
+
+	    	}});
+
+		}
+		if(a==2){		  	//console.log(bus_amount);	
+		  	$.ajax({
+		  		url: "/bsqueries",
+		  		data: {"bus": 2},
+		  		type: "POST", 
+		  		success: function(result){console.log(result[0]);
+		  			for(var i=0;i<result.length;i++){
+		  				$("#query02").append('<p>'+result[i].fullname+'</p>');
+		  		}
+	    	}});
+	    }
+		if(a==3){		  	//console.log(bus_amount);	
+		  	$.ajax({
+		  		url: "/bsqueries",
+		  		data: {"bus": 3},
+		  		type: "POST", 
+		  		success: function(result){console.log(result[0]);
+		  			for(var i=0;i<result.length;i++){
+		  				$("#query2").append('<p>'+result[i].fullname+'</p>');
+		  		}
+	    	}});
+		}
+		if(a==4){		  	//console.log(bus_amount);	
+		  	$.ajax({
+		  		url: "/bsqueries",
+		  		data: {"bus": 4},
+		  		type: "POST", 
+		  		success: function(result){console.log(result[0]);
+		  			for(var i=0;i<result.length;i++){
+		  				$("#query3").append('<p>'+result[i].fullname+'</p>');
+		  		}
+	    	}});
+		}
+		if(a==5){		  	//console.log(bus_amount);	
+		  	$.ajax({
+		  		url: "/bsqueries",
+		  		data: {"bus": 5},
+		  		type: "POST", 
+		  		success: function(result){console.log(result[0]);
+		  			$("#query4").append('<p>Business & Coupons</p>');
+		  			for(var i=0;i<result.length;i++){
+		  				$("#query4").append('<p>'+result[i].fullname+'    '+result[i].coupon_id+'</p>');
+		  		}
+	    	}});
+		}
+		if(a==6){	
+			var t=document.getElementById("inp1").value;	  	//console.log(bus_amount);	
+		  	$.ajax({
+		  		url: "/bsqueries",
+		  		data: {"bus": 6, "t":t},
+		  		type: "POST", 
+		  		success: function(result){console.log(result[0]);
+		  			$("#query4").append('<p>Business & Coupons</p>');
+		  			for(var i=0;i<result.length;i++){
+		  				$("#query5").append('<p>'+result[i].fullname+'    '+result[i].coupon_id+'</p>');
+		  		}
+	    	}});
+		}
+
+
+	}
+
+	function disp(k){
+	  var qdivs = document.getElementsByClassName("qdiv");
+
+	  for (i = 0; i < qdivs.length; i++) {
+	      var hidediv = qdivs[i];
+	      hidediv.style.display= "none";
+
+	    }
+
+	    ele = "query"+ k;  
+	    console.log(ele);          
+	    document.getElementById(ele).style.display = "block";   
+	}
+
+	function drop_menu(){      
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+	window.onclick = function(event) {
+	  if (!event.target.matches('.dropbtn')) {
+
+	    var dropdowns = document.getElementsByClassName("dropdown-content");
+	    var i;
+	    for (i = 0; i < dropdowns.length; i++) {
+	      var openDropdown = dropdowns[i];
+	      if (openDropdown.classList.contains('show')) {
+	        openDropdown.classList.remove('show');
+	      }
+	    }
+	  }
+	}
+		
+			//insert functions here
+		
+
+	</script>
+</head>
+<body>
+
+<div class="container-fluid text-center well cols-md-8" style="vertical-align: middle">
+	<h3 style="padding-bottom:10px"> Welcome to our payment portal! </h3>
+	
+	<div class="dropdown">
+  <button onclick="drop_menu()" class="dropbtn">  Learn more about our businesses </button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#" onclick="disp(0)">The highest...</a>
+    <a href="#" onclick="disp(2)">The most active</a>
+     <a href="#" onclick="disp(5)">Cutoff transaction</a>
+    <a href="#" onclick="disp(3)">All our businesses</a>
+    <a href="#" onclick="disp(4)">Coupons!!</a>
+  </div>
+</div>
+<!--You can have more than one drop down menu button if there are seperate categories for your bsqueries (eg. employee information queries, menu queries) -->
+
+<!-- Divs for displaying queries (will be hidden initially) -->
+</br>
+</br>
+
+<div class="row">
+<div class="container-fluid">
+	 <div id="query0" class="qdiv">
+    <span>
+	 <div  id="query01"  style="display:inline-block; width:50%" class="form-group">
+		 <label>Business with highest number of transactions made to it</label>
+		   <button onclick="sendq(1)" class="btn btn-success"> Go! </button>
+		  </div>
+		  <div  id="query02"  style="display:inline-block; width:50%" class="form-group">
+		   <label>Business with highest number of users associated with it</label>
+		  <button onclick="sendq(2)" class="btn btn-success"> Go! </button>
+		   </div>
+   </span>  
+  </div>
+  <div id="query4" class="qdiv">
+  <span>
+	 <div  style="display:inline-block; width:50%" class="form-group">
+		 <label>View the coupons that each business offers</label>
+		  </div> <button onclick="sendq(5)" class="btn btn-success"> Go! </button>
+
+   </span>  
+  </div>
+  <div id="query2" class="qdiv">
+    <p>
+    	<span>
+	 <div  style="display:inline-block; width:50%" class="form-group">
+		 <label>Business with highest average transction made to it</label>
+		   <button onclick="sendq(3)" class="btn btn-success"> Go! </button></div>
+
+   </span>  
+     </p>   
+  </div>
+  <div id="query3" class="qdiv">
+    <p>
+    <span>
+	 <div  style="display:inline-block; width:50%" class="form-group">
+    <label>View all</label>
+		  </div> <button onclick="sendq(4)" class="btn btn-success"> Go! </button> </span> </p>   
+ 
+  	
+</div>
+	 <div id="query5" class="qdiv">
+  <span>
+	 <div  style="display:inline-block; width:50%" class="form-group">
+		 <label>Businesses that have earned more than</label>
+
+		 <input type="number" id="inp1" class="form-content">
+		  </div> <button onclick="sendq(6)" class="btn btn-success"> Go! </button>
+
+   </span>  
+  </div>
+
+	</br>
+	
+	<!--Payment -->
+	
+
+</div>
+</body>
+</html>

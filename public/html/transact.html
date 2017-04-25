@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Transaction page </title>
+	 
+	 <link href="css/bootstrap.min.css" rel="stylesheet">
+	 <script src="./js/jquery-3.2.0.min.js"></script>
+	 <script src="js/bootstrap.min.js"></script>
+
+	
+	<!-- 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+
+	 <script src="./js/jquery.toast.min.js"></script>
+	<link rel="stylesheet" href="./css/jquery.toast.min.css"/>
+	<link rel="stylesheet" href="./css/jquery.toast.min.css"/> -->
+
+
+	<style> 
+
+	.panel{
+		margin-left:auto;
+		margin-right:auto;
+	}
+	
+	button{
+		padding-right: 20px;
+		padding-left: 20px; 
+		margin: 10px 10px 10px 10px;
+	}
+	</style>
+	<script type="text/javascript">
+		
+			$(document).ready(function(){
+				$("form").addClass('text-left');
+
+			});
+			//insert functions here
+
+		$("#pay").submit(function(){
+			e.preventDefault(); // don't submit multiple times
+    		this.submit();
+			$("#sbtn"+1).prop("disabled",true);
+		});
+		
+
+	</script>
+</head>
+<body>
+
+<div class="container-fluid text-center well cols-md-8" style="vertical-align: middle">
+	<h3 style="padding-bottom:10px"> Welcome to our payment portal! </h3>
+	
+	</br>
+	
+	<!--Payment -->
+	<div style="margin-top: 30px; width: 60%;" class="divs panel panel-primary" id="trans_div"/>
+	<div class="panel panel-heading"> Pay a friend or business! </div>
+	<div class="panel panel-body">
+		<form method="POST" action="/payments" id="pay">
+		  	<div class="form-group">
+		  	<label>Enter your email</label>
+		    <input name="send_email" type="email" class="form-control" >
+		  </div>
+
+		  	<div class="form-group">
+		  	<label>Enter business' or friend's email</label>
+		    <input name="rec_email" type="email" class="form-control" >
+		  </div>
+		<div class="form-group">
+		 <label>Enter amount</label>
+		    <input name="amt" type="number" step="0.01" class="form-control" >
+		  </div>
+		
+		  <button style="float:right" id="sbtn1" class="btn btn-success" type="submit"> Transfer amount </button>  
+		</form>
+	</div>
+	</div>
+
+</div>
+</body>
+</html>
